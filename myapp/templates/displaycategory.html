@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+{% extends 'indexpage.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="table-responsive pt-3">
+                  <table class="table table-striped project-orders-table">
+                    <thead>
+                      <tr>
+
+                        <th>Category Name</th>
+                        <th>Description	</th>
+                        <th>Image</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for i in data %}
+                      <tr>
+                        <td>{{i.Categoryname}}</td>
+                        <td>{{i.Description}}  </td>
+                        <td>
+                          <img src="{{i.Categoryimage.url}}" width="100px" height="100px" >
+                        </td>
+                        <td>
+                          <div class="d-flex align-items-center">
+                            <a class="btn btn-success btn-sm btn-icon-text mr-3" href="{% url 'editcategory' stud_id=i.id %}" >
+                              Edit
+                              <i class="typcn typcn-edit btn-icon-append"></i>
+                            </a>
+
+                            <a class="btn btn-danger btn-sm btn-icon-text" href="{% url 'deletecategory' stud_id=i.id %}">
+                              Delete
+                              <i class="typcn typcn-delete-outline btn-icon-append"></i>
+                            </a>
+
+                          </div>
+                        </td>
+                      </tr>
+                     {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+ <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    {% if messages %}
+
+    {% for i in messages %}
+    {% if i.tags == 'sucess' %}
+
+    <script>
+        swal('{{i}}','','sucess');
+    </script>
+
+    {% elif i.tags == 'warning');
+    <script>
+        swal('{{i}}','','warning');
+    </script>
+    {% elif i.tags == 'error');
+    <script>
+        swal('{{i}}','','error');
+    </script>
+    {% else %}
+    <script>
+        swal('{{i}}','','info');
+    </script>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+
+</body>
+</html>
+{% endblock %}

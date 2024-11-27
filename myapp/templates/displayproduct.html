@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+{% extends 'indexpage.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="col-md-12">
+              <div class="card">
+                <div class="table-responsive pt-3">
+                  <table class="table table-striped project-orders-table">
+                    <thead>
+                      <tr>
+                        <th>Product category</th>
+                        <th>Product name</th>
+                        <th>Quantity</th>
+                        <th>MRP</th>
+                        <th>Description</th>
+                        <th>Country of origin</th>
+                        <th>Manufactured by</th>
+                        <th>image</th>
+                        <th>image1</th>
+                        <th>image2</th>
+
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for i in data %}
+
+                      <tr>
+                        <td>{{i.Productcategory}}</td>
+                        <td>{{i.Productname}}</td>
+                        <td>{{i.Quantity}} </td>
+                        <td>{{i.MRP}}</td>
+                        <td>{{i.Description}}</td>
+                        <td>{{i.Countryorigin}}</td>
+                          <td>{{i.Manufacturedby}}</td>
+                          <td><img src="{{i.Productimage.url}}" width="100px" height="100px"></td>
+                          <td><img src="{{i.Productimage1.url}}" width="100px" height="100px"></td>
+                          <td><img src="{{i.Productimage2.url}}" width="100px" height="100px"></td>
+                        <td>
+                          <div class="d-flex align-items-center">
+                            <a class="btn btn-success btn-sm btn-icon-text mr-3" href="{% url 'editproduct' stud_id=i.id %}">
+                              Edit
+                              <i class="typcn typcn-edit btn-icon-append"></i>
+                            </a>
+
+                             <a class="btn btn-danger btn-sm btn-icon-text" href="{% url 'deleteproduct' stud_id=i.id %}">
+                             Delete
+                              <i class="typcn typcn-delete-outline btn-icon-append"></i>
+                            </a>
+                          </div>
+                        </td>
+                      </tr>
+                    {% endfor %}
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+ <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    {% if messages %}
+
+    {% for i in messages %}
+    {% if i.tags == 'sucess' %}
+
+    <script>
+        swal('{{i}}','','sucess');
+    </script>
+
+    {% elif i.tags == 'warning');
+    <script>
+        swal('{{i}}','','warning');
+    </script>
+    {% elif i.tags == 'error');
+    <script>
+        swal('{{i}}','','error');
+    </script>
+    {% else %}
+    <script>
+        swal('{{i}}','','info');
+    </script>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+</body>
+</html>
+{% endblock %}
